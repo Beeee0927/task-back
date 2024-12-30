@@ -4,25 +4,29 @@ import { Connection } from 'mongoose'
 export interface Task {
   userId: string
   title: string
-  content: string
+  content: object
+  contentHtml: string
   status: 'notFinished' | 'grading' | 'completed' | 'sendBack'
   answer: any[]
   mark: number
   comment: string
   deadline: string
-  read: boolean
+  read: string[]
+  deptName: 'frontEnd' | 'backEnd'
 }
 
 export const TaskSchema = new mongoose.Schema({
   userId: { type: String, default: '' },
   title: { type: String, default: '' },
-  content: { type: String, default: '' },
+  content: { type: Object, default: {} },
+  contentHtml: { type: String, default: '' },
   status: { type: String, default: 'notFinished' },
   answer: { type: Array, default: [] },
   mark: { type: Number, default: 0 },
   comment: { type: String, default: '' },
   deadline: { type: String, default: '' },
-  read: { type: Boolean, default: false }
+  read: { type: Array, default: [] },
+  deptName: { type: String, default: '' }
 })
 
 export const tasksProviders = [

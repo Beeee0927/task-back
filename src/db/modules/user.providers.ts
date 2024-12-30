@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose'
 import { Connection } from 'mongoose'
 
 export interface User {
+  _id: string
   username: string
   password: string
   role: 'admin' | 'user' | 'observer'
