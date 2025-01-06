@@ -11,7 +11,8 @@ export class AuthMiddleware implements NestMiddleware {
   ) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
-    if (req.originalUrl === '/login') return next()
+    if (req.originalUrl === '/login' || req.originalUrl.startsWith('/download'))
+      return next()
 
     const sessionId = req.headers.sessionid
 

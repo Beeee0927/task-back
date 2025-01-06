@@ -14,8 +14,21 @@ export class ResponseInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((res) => {
         const newRes = context.switchToHttp().getResponse() as Response
-        newRes.type('json')
+
         newRes.status(res.status ?? 200)
+
+        if (res.filename) {
+          newRes.type('application/octet-stream')
+          newRes.setHeader(
+            'Content-Disposition',
+            `inline; filename="${res.filename}"`
+          )
+          newRes.setHeader('filename', res.filename)
+
+          return { message: '获取文件成功' }
+        }
+
+        newRes.type('json')
         return {
           code: res.code ?? 0,
           message:

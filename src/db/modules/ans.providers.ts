@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose'
 import { Connection } from 'mongoose'
+import { ObjectId } from 'mongoose'
 
 export interface Ans {
   taskId: string
@@ -7,7 +8,7 @@ export interface Ans {
   deptName: 'frontEnd' | 'backEnd'
   content: object
   contentHtml: string
-  files: any[]
+  files: ObjectId[]
   mark: number
   comment: string
   status: 'grading' | 'completed' | 'sendBack'
