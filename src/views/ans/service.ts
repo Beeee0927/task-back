@@ -80,7 +80,7 @@ export class AnsService {
       {
         score,
         comment,
-        status: score >= 60 ? 'completed' : 'sendBack'
+        status: score >= 60 ? 'finished' : undefined
       }
     )
 
@@ -94,5 +94,16 @@ export class AnsService {
     )
 
     return { message: '批改成功' }
+  }
+
+  async getTaskBadges(taskId: string) {
+    console.log(await this.ansModel.find({ taskId }))
+    const grading = (
+      await this.ansModel.find({ taskId, status: 'grading' })
+    ).map((ans) => ans.userId)
+    const finished = (
+      await this.ansModel.find({ taskId, status: 'finished' })
+    ).map((ans) => ans.userId)
+    return { message: '获取成功', data: { grading, finished } }
   }
 }

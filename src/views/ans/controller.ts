@@ -35,4 +35,9 @@ export class AnsController {
   async addReview(@Body() { taskId, userId, score, comment }) {
     return this.ansService.addReview(taskId, userId, score, comment)
   }
+
+  @Post('/getTaskBadges')
+  async getTaskBadges(@Body() { taskId }) {
+    return this.ansService.getTaskBadges(taskId)
+  }
 }

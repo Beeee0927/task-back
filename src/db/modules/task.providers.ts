@@ -6,7 +6,7 @@ export interface Task {
   title: string
   content: object
   contentHtml: string
-  status: 'notFinished' | 'grading' | 'completed' | 'sendBack'
+  status: 'notFinished' | 'grading' | 'finished'
   answer: any[]
   mark: number
   comment: string

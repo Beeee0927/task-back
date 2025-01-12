@@ -11,7 +11,7 @@ export interface Ans {
   files: ObjectId[]
   score: number
   comment: string
-  status: 'grading' | 'completed' | 'sendBack'
+  status: undefined | 'grading' | 'finished'
 }
 
 export const AnsSchema = new mongoose.Schema({
@@ -21,9 +21,9 @@ export const AnsSchema = new mongoose.Schema({
   content: { type: Object, default: {} },
   contentHtml: { type: String, default: '' },
   files: { type: Array, default: [] },
-  score: { type: Number, default: 0 },
+  score: { type: Number, default: -1 },
   comment: { type: String, default: '' },
-  status: { type: String, default: 'grading' }
+  status: { type: String, default: undefined }
 })
 
 export const ansProviders = [

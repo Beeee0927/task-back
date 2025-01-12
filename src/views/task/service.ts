@@ -55,7 +55,7 @@ export class TaskService {
         if (status === '待提交任务') {
           const allTaskIds = myAnses.map((ans) => ans.taskId)
           const sendBackTaskIds = myAnses
-            .filter((ans) => ans.status === 'sendBack')
+            .filter((ans) => !ans.status)
             .map((ans) => ans.taskId)
 
           return await this.taskModel.find({
@@ -79,7 +79,7 @@ export class TaskService {
 
         if (status === '已完成任务') {
           const completedTaskIds = myAnses
-            .filter((ans) => ans.status === 'completed')
+            .filter((ans) => ans.status === 'finished')
             .map((ans) => ans.taskId)
           return await this.taskModel.find({
             deptName,
@@ -117,7 +117,7 @@ export class TaskService {
           await this.ansModel
             .find({
               deptName,
-              status: 'completed'
+              status: 'finished'
             })
             .select('taskId')
         ).reduce((map, cur) => {

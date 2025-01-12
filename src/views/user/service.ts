@@ -29,4 +29,9 @@ export class UserService {
     const users = await this.userModel.find({ deptName, role: 'user' })
     return { message: '获取成功', data: users }
   }
+
+  async resetPassword({ _id }: User, password: string) {
+    await this.userModel.findByIdAndUpdate(_id, { password })
+    return { message: '密码重置成功' }
+  }
 }

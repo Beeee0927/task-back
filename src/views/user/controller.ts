@@ -14,4 +14,9 @@ export class UserController {
   async getUsers(@Req() { user }) {
     return this.userService.getUsers(user)
   }
+
+  @Post('/resetPassword')
+  async resetPassword(@Req() { user }, @Body() { password }) {
+    return this.userService.resetPassword(user, password)
+  }
 }
