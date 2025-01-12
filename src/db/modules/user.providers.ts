@@ -3,6 +3,7 @@ import { Connection } from 'mongoose'
 
 export interface User {
   _id: string
+  sessionId: string
   username: string
   password: string
   role: 'admin' | 'user' | 'observer'
@@ -11,6 +12,7 @@ export interface User {
 }
 
 export const UserSchema = new mongoose.Schema({
+  sessionId: { type: String, default: '' },
   username: { type: String, default: '' },
   password: { type: String, default: '' },
   role: {

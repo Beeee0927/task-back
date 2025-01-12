@@ -9,7 +9,7 @@ export interface Ans {
   content: object
   contentHtml: string
   files: ObjectId[]
-  mark: number
+  score: number
   comment: string
   status: 'grading' | 'completed' | 'sendBack'
 }
@@ -21,7 +21,7 @@ export const AnsSchema = new mongoose.Schema({
   content: { type: Object, default: {} },
   contentHtml: { type: String, default: '' },
   files: { type: Array, default: [] },
-  mark: { type: Number, default: 0 },
+  score: { type: Number, default: 0 },
   comment: { type: String, default: '' },
   status: { type: String, default: 'grading' }
 })

@@ -3,6 +3,7 @@ import { usersProviders } from './modules/user.providers'
 import { tasksProviders } from './modules/task.providers'
 import { ansProviders } from './modules/ans.providers'
 import * as mongoose from 'mongoose'
+import { messageProviders } from './modules/message.providers'
 
 const databaseProviders = [
   {
@@ -16,7 +17,8 @@ const providers = [
   ...databaseProviders,
   ...usersProviders,
   ...tasksProviders,
-  ...ansProviders
+  ...ansProviders,
+  ...messageProviders
 ]
 
 @Module({

@@ -8,13 +8,13 @@ export class GridfsController {
 
   @Get('/download/:fileId')
   async downloadFile(@Param('fileId') fileId: string, @Res() res: Response) {
-    const { filename, stream } = await this.gridfsService.downloadFile(fileId)
-    if (!stream)
+    const result = await this.gridfsService.downloadFile(fileId)
+    if (!result.stream)
       return {
         status: 400,
         message: '文件不存在'
       }
-    stream.pipe(res)
-    return { filename }
+    result.stream.pipe(res)
+    return result
   }
 }

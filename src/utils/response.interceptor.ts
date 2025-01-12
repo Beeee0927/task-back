@@ -18,7 +18,7 @@ export class ResponseInterceptor implements NestInterceptor {
         newRes.status(res.status ?? 200)
 
         if (res.filename) {
-          newRes.type('application/octet-stream')
+          newRes.type(res.mimetype)
           newRes.setHeader(
             'Content-Disposition',
             `inline; filename="${res.filename}"`

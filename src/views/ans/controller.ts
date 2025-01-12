@@ -30,4 +30,9 @@ export class AnsController {
   async getAns(@Req() { user }, @Body() { taskId, userId }) {
     return this.ansService.getAns(user, taskId, userId)
   }
+
+  @Post('/addReview')
+  async addReview(@Body() { taskId, userId, score, comment }) {
+    return this.ansService.addReview(taskId, userId, score, comment)
+  }
 }

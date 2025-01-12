@@ -15,7 +15,11 @@ export class GridfsService {
   }
 
   async uploadFile(file: any) {
-    const uploadStream = this.bucket.openUploadStream(file.originalname)
+    const uploadStream = this.bucket.openUploadStream(file.originalname, {
+      metadata: {
+        mimetype: file.mimetype
+      }
+    })
     uploadStream.write(file.buffer)
     return uploadStream.end().id
   }
@@ -33,6 +37,7 @@ export class GridfsService {
     if (!file) return { filename: '', stream: null }
     return {
       filename: file.filename,
+      mimetype: file.metadata.mimetype,
       stream: this.bucket.openDownloadStream(new ObjectId(fileId))
     }
   }

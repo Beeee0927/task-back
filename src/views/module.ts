@@ -8,15 +8,24 @@ import { TaskService } from './task/service'
 import { AnsService } from './ans/service'
 import { GridfsService } from './gridfs/service'
 import { GridfsController } from './gridfs/controller'
+import { MessageController } from './message/controller'
+import { MessageService } from './message/service'
 
 @Module({
   imports: [DatabaseModule],
   controllers: [
+    GridfsController,
     UserController,
     TaskController,
     AnsController,
-    GridfsController
+    MessageController
   ],
-  providers: [UserService, TaskService, AnsService, GridfsService]
+  providers: [
+    UserService,
+    TaskService,
+    AnsService,
+    GridfsService,
+    MessageService
+  ]
 })
 export class ViewsModule {}

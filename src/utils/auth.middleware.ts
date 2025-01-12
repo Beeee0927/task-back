@@ -17,9 +17,8 @@ export class AuthMiddleware implements NestMiddleware {
     const sessionId = req.headers.sessionid
 
     try {
-      req.user = (await this.userModel.findById(sessionId)).toObject()
-      if (!sessionId || !req.user)
-        return res.status(401).json({ message: '登录验证失败' })
+      req.user = (await this.userModel.findOne({ sessionId })).toObject()
+      if (!req.user) return res.status(401).json({ message: '登录验证失败' })
     } catch {
       return res.status(401).json({ message: '登录验证失败' })
     }

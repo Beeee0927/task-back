@@ -3,6 +3,7 @@ import { Model } from 'mongoose'
 import { Ans } from 'src/db/modules/ans.providers'
 import { Task } from 'src/db/modules/task.providers'
 import { User } from 'src/db/modules/user.providers'
+import { MessageService } from '../message/service'
 
 @Injectable()
 export class TaskService {
@@ -12,7 +13,9 @@ export class TaskService {
     @Inject('ANS_MODEL')
     private ansModel: Model<Ans>,
     @Inject('USER_MODEL')
-    private userModel: Model<User>
+    private userModel: Model<User>,
+    @Inject(MessageService)
+    private messageService: MessageService
   ) {}
 
   async addTask(
@@ -29,7 +32,16 @@ export class TaskService {
       contentHtml,
       deadline
     })
-    await task.save()
+
+    const users = await this.userModel.find({ deptName, role: 'user' })
+    users.forEach(async (user) => {
+      await this.messageService.addMessage(
+        user._id,
+        '新任务发布',
+        title + '：' + contentHtml.replace(/<[^>]*>/g, '')
+      )
+    })
+
     return { message: '数据插入成功', data: {} }
   }
 
@@ -109,9 +121,10 @@ export class TaskService {
             })
             .select('taskId')
         ).reduce((map, cur) => {
-          const id = cur._id.toString()
+          const id = cur.taskId.toString()
           map[id] ??= 0
           map[id]++
+          return map
         }, {} as any)
 
         const completedTaskIds = []
@@ -166,7 +179,6 @@ export class TaskService {
       deadline
     })
     if (!task) return { message: '找不到该数据', data: {} }
-    await task.save()
     return { message: '数据更新成功', data: {} }
   }
 }
